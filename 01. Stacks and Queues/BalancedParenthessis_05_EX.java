@@ -6,32 +6,35 @@ public class BalancedParenthessis_05_EX {
         Scanner sc = new Scanner(System.in);
 
         String input = sc.nextLine();
-        ArrayDeque<Character> stack = new ArrayDeque<>();
-        ArrayDeque<Character> queue = new ArrayDeque<>();
+        ArrayDeque<String> stack = new ArrayDeque<>();
+        boolean balanced = false;
 
-        for(int i = 0; i < input.length()/2; i++){
-            stack.push(input.charAt(i));
-        }
+        for(int i = 0; i < input.length(); i++){
+            String current = String.valueOf(input.charAt(i));
 
-        int k = input.length()/2;
-        for(int i = 0; i < input.length()/2; i++){
-            queue.offer(input.charAt(k));
-            k++;
-        }
-        boolean not = false;
-
-        while(!stack.isEmpty() && !queue.isEmpty()){
-            String st = stack.pop().toString();
-            String qu = queue.poll().toString();
-            if((st.equals("(") && qu.equals(")"))|| (st.equals("{") && qu.equals("}")) || (st.equals("[") && qu.equals("]"))){
-                not = true;
-            }else{
-                System.out.println("NO");
-                return;
+            if(current.equals("(")  || current.equals("{")  || current.equals("[")){
+                stack.push(current);
+            }
+            else if(current.equals(")") || current.equals("}") || current.equals("]")) {
+                if(stack.isEmpty()){
+                    balanced = false;
+                    break;
+                }
+                String last = stack.pop();
+                if(last.equals("(") && current.equals(")")){
+                    balanced = true;
+                }else if(last.equals("{") && current.equals("}")){
+                    balanced = true;
+                }else if(last.equals("[") && current.equals("]")){
+                    balanced = true;
+                }else{
+                    balanced = false;
+                    break;
+                }
             }
         }
 
-        if(not == true && stack.isEmpty() && queue.isEmpty()){
+        if(balanced){
             System.out.println("YES");
         }else{
             System.out.println("NO");
