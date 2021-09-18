@@ -1,20 +1,22 @@
 import java.util.Scanner;
 
 public class Fibonacci_06_EX {
+    public static long[] memory;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int input = Integer.parseInt(sc.nextLine());
-        int result = fibonacci(input);
-        System.out.println(result);
+        memory = new long[input+1];
+        System.out.println(fib(input));
     }
 
-    private static int fibonacci(int input) {
-        if(input == 0 || input == 1){
+    private static long fib(int n) {
+        if(n == 0 || n == 1){
             return 1;
         }
-        else{
-            return fibonacci(input - 1) + fibonacci(input - 2);
+        if(memory[n] != 0){
+            return memory[n];
         }
+        return memory[n] = fib((n - 1)) + fib((n - 2));
     }
 }
