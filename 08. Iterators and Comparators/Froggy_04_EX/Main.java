@@ -1,0 +1,25 @@
+import javax.crypto.CipherInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
+
+        String first = sc.nextLine();
+        String second = sc.nextLine();
+
+        Lake lake = new Lake(first);
+        List<Integer> list = new ArrayList<>();
+        lake.forEach(list::add);
+        System.out.println(list.toString().replaceAll("[\\[\\]]", ""));
+
+    }
+}
